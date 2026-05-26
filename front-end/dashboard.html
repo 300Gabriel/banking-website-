@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <h1>TrustBank</h1>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+      </div>
+    </nav>
+
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <h2>TrustBank</h2>
+
+        <ul>
+          <li>Dashboard</li>
+          <li>Transactions</li>
+          <li>Transfer</li>
+          <li>Cards</li>
+          <li>Settings</li>
+        </ul>
+
+        <button id="logout-btn">Logout</button>
+      </aside>
+
+      <main class="main-content">
+        <h1 id="welcome-message"></h1>
+        <p id="account-number"></p>
+
+        <div class="cards">
+          <div class="bank-card">
+            <h3>Total Balance</h3>
+            <h1 id="balance">$25,000</h1>
+          </div>
+
+          <div class="bank-card">
+            <h3>Savings</h3>
+            <h1>$10,500</h1>
+          </div>
+
+          <div class="bank-card">
+            <h3>Investments</h3>
+            <h1>$14,500</h1>
+          </div>
+        </div>
+
+        <div class="transfer-section">
+          <h2>Transfer Money</h2>
+
+          <form id="transfer-form">
+            <input
+              type="text"
+              id="recipient"
+              placeholder="Recipient Name"
+              required
+            />
+
+            <input type="number" id="amount" placeholder="Amount" required />
+
+            <button type="submit">Send Money</button>
+          </form>
+        </div>
+
+        <div class="transactions" id="transactions-container">
+          <h2>Recent Transactions</h2>
+
+          <div class="transaction">
+            <p>Netflix Subscription</p>
+            <span>-$20</span>
+          </div>
+
+          <div class="transaction">
+            <p>Salary Payment</p>
+            <span>+$3,000</span>
+          </div>
+
+          <div class="transaction">
+            <p>Electricity Bill</p>
+            <span>-$120</span>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
