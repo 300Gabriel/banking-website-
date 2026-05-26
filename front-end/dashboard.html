@@ -10,7 +10,7 @@
   </head>
   <body>
     <nav>
-      <h1>TrustBank</h1>
+      <h1><img src="/bank.svg" alt="" srcset="" width="30px" /> TrustBank</h1>
 
       <div class="nav-links">
         <a href="index.html">Home</a>
@@ -21,17 +21,52 @@
 
     <div class="dashboard-layout">
       <aside class="sidebar">
-        <h2>TrustBank</h2>
+        <div class="sidebar-top">
+          <h2>TrustBank</h2>
 
-        <ul>
-          <li>Dashboard</li>
-          <li>Transactions</li>
-          <li>Transfer</li>
-          <li>Cards</li>
-          <li>Settings</li>
-        </ul>
+          <ul>
+            <li class="active">
+              <a href="#">
+                <span>🏠</span>
+                Dashboard
+              </a>
+            </li>
 
-        <button id="logout-btn">Logout</button>
+            <li>
+              <a href="#transactions-container">
+                <span>💸</span>
+                Transactions
+              </a>
+            </li>
+
+            <li>
+              <a href="#transfer-form">
+                <span>📤</span>
+                Transfer
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <span>💳</span>
+                Cards
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <span>⚙️</span>
+                Settings
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-bottom">
+          <button id="theme-toggle">🌙 Dark Mode</button>
+
+          <button id="logout-btn">Logout</button>
+        </div>
       </aside>
 
       <main class="main-content">
@@ -39,19 +74,37 @@
         <p id="account-number"></p>
 
         <div class="cards">
-          <div class="bank-card">
-            <h3>Total Balance</h3>
+          <div class="bank-card primary-card">
+            <div class="card-top">
+              <p>Total Balance</p>
+              <span>💳</span>
+            </div>
+
             <h1 id="balance">$25,000</h1>
+
+            <small>Available Balance</small>
           </div>
 
           <div class="bank-card">
-            <h3>Savings</h3>
+            <div class="card-top">
+              <p>Savings</p>
+              <span>📈</span>
+            </div>
+
             <h1>$10,500</h1>
+
+            <small>Long Term Savings</small>
           </div>
 
           <div class="bank-card">
-            <h3>Investments</h3>
+            <div class="card-top">
+              <p>Investments</p>
+              <span>📊</span>
+            </div>
+
             <h1>$14,500</h1>
+
+            <small>Portfolio Growth</small>
           </div>
         </div>
 

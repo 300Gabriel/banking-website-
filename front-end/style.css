@@ -167,7 +167,7 @@ form button {
   margin-bottom: 30px;
 }
 .btn-second {
-  background: red;
+  background: #1a73e8;
   color: white;
   padding: 15px 30px;
   text-decoration: none;
@@ -176,7 +176,7 @@ form button {
 
 .btn-inline {
   border: 2px solid #111827;
-  color: red;
+  color: #1a73e8;
   padding: 15px 30px;
   text-decoration: none;
   border-radius: 8px;
@@ -191,27 +191,87 @@ form button {
   border-color: #ddd;
   color: #111;
 }
+/* SIDEBAR */
+/* SIDEBAR */
 .sidebar {
-  width: 250px;
+  width: 240px;
+  min-height: 100vh;
   background: #111827;
   color: white;
-  padding: 30px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.sidebar h2 {
-  margin-bottom: 10px;
+.sidebar-top h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
 }
 
 .sidebar ul {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.sidebar ul li {
-  margin: 20px 0;
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 14px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.sidebar ul li a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(5px);
+}
+
+.sidebar ul li.active a {
+  background: #1a73e8;
+}
+
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* BUTTONS */
+#theme-toggle,
+#logout-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+#theme-toggle {
+  background: #374151;
+  color: white;
+}
+
+#theme-toggle:hover {
+  background: #4b5563;
+}
+
+#logout-btn {
+  background: #ef4444;
+  color: white;
+}
+
+#logout-btn:hover {
+  background: #dc2626;
 }
 
 .main-content {
@@ -253,15 +313,6 @@ form button {
   border-bottom: 1px solid #ddd;
 }
 
-#logout-btn {
-  padding: 10px;
-  border: none;
-  background: red;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 .transfer-section {
   margin-top: 40px;
   background: white;
@@ -279,4 +330,214 @@ form button {
 
 .transfer-section button {
   background: #1a73e8;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  background: #eef2f9;
+}
+
+/* WELCOME */
+#welcome-message {
+  font-size: 32px;
+  color: #111827;
+}
+
+#account-number {
+  margin-top: 10px;
+  color: #6b7280;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(to bottom, #111827, #1f2937);
+  color: white;
+  padding: 30px;
+}
+
+.sidebar ul li {
+  padding: 12px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.sidebar ul li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* CARDS */
+.cards {
+  margin-top: 40px;
+}
+
+.bank-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  transition: 0.3s;
+  border: 1px solid #e5e7eb;
+}
+
+.bank-card:hover {
+  transform: translateY(-5px);
+}
+
+.primary-card {
+  background: linear-gradient(135deg, #1a73e8, #0052cc);
+  color: white;
+}
+
+.primary-card h1 {
+  color: white;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-top span {
+  font-size: 24px;
+}
+
+.bank-card h1 {
+  margin: 20px 0;
+  font-size: 32px;
+}
+
+.bank-card small {
+  color: #d1d5db;
+}
+
+/* TRANSFER SECTION */
+.transfer-section {
+  margin-top: 40px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid #e5e7eb;
+}
+
+.transfer-section form {
+  width: 100%;
+  box-shadow: none;
+  padding: 0;
+}
+
+.transfer-section input {
+  margin-bottom: 15px;
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+}
+
+.transfer-section button {
+  width: 100%;
+  padding: 16px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.transfer-section button:hover {
+  background: #0052cc;
+}
+
+/* TRANSACTIONS */
+.transactions {
+  margin-top: 40px;
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.transaction-info h4 {
+  margin-bottom: 5px;
+  color: #111827;
+}
+
+.transaction-info small {
+  color: #6b7280;
+}
+
+.amount {
+  font-weight: bold;
+  color: #ef4444;
+}
+
+/* LOGOUT BUTTON */
+#logout-btn {
+  padding: 14px;
+  font-size: 15px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+#logout-btn:hover {
+  background: darkred;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  nav {
+    padding: 20px;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .hero-text h2 {
+    font-size: 36px;
+  }
+}
+
+/* DARK MODE */
+body.dark {
+  background: #0f172a;
+}
+
+body.dark .main-content {
+  background: #0f172a;
+  color: white;
+}
+
+body.dark .bank-card,
+body.dark .transactions,
+body.dark .transfer-section {
+  background: #1e293b;
+  color: white;
+  border-color: #334155;
+}
+
+body.dark .transaction-info h4,
+body.dark #welcome-message {
+  color: white;
+}
+
+body.dark .transaction-info small,
+body.dark #account-number {
+  color: #cbd5e1;
+}
+
+body.dark input {
+  background: #0f172a;
+  color: white;
+  border: 1px solid #334155;
 }
