@@ -98,10 +98,6 @@ if (loginForm) {
 // DASHBOARD SECTION
 // ==========================
 
-// ==========================
-// DASHBOARD SECTION
-// ==========================
-
 const welcomeMessage = document.querySelector("#welcome-message");
 
 if (welcomeMessage) {
@@ -142,6 +138,115 @@ if (welcomeMessage) {
 
   if (balanceElement) {
     balanceElement.textContent = `$${balance}`;
+  }
+
+  // ==========================
+  // DEPOSIT MONEY
+  // ==========================
+
+  const depositForm = document.querySelector("#deposit-form");
+
+  if (depositForm) {
+    depositForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const amount = Number(document.querySelector("#deposit-amount").value);
+
+      if (amount <= 0) {
+        alert("Enter a valid amount");
+        return;
+      }
+
+      balance += amount;
+
+      user.balance = balance;
+
+      const depositTransaction = {
+        name: "Cash Deposit",
+        amount: amount,
+        type: "received",
+        date: new Date().toLocaleDateString(),
+      };
+
+      transactions.unshift(depositTransaction);
+
+      user.transactions = transactions;
+
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+
+      const updatedUsers = users.map(function (u) {
+        return u.email === user.email ? user : u;
+      });
+
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      balanceElement.textContent = `$${balance}`;
+
+      renderTransactions();
+
+      depositForm.reset();
+
+      alert(`$${amount} deposited successfully`);
+    });
+  }
+
+  // ==========================
+  // WITHDRAW MONEY
+  // ==========================
+
+  const withdrawForm = document.querySelector("#withdraw-form");
+
+  if (withdrawForm) {
+    withdrawForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const amount = Number(document.querySelector("#withdraw-amount").value);
+
+      if (amount <= 0) {
+        alert("Enter a valid amount");
+        return;
+      }
+
+      if (amount > balance) {
+        alert("Insufficient balance");
+        return;
+      }
+
+      balance -= amount;
+
+      user.balance = balance;
+
+      const withdrawTransaction = {
+        name: "Cash Withdrawal",
+        amount,
+        type: "sent",
+        date: new Date().toLocaleDateString(),
+      };
+
+      transactions.unshift(withdrawTransaction);
+
+      user.transactions = transactions;
+
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+
+      const updatedUsers = users.map(function (u) {
+        return u.email === user.email ? user : u;
+      });
+
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      balanceElement.textContent = `$${balance}`;
+
+      renderTransactions();
+
+      withdrawForm.reset();
+
+      alert(`$${amount} withdrawn successfully`);
+    });
   }
 
   // Transactions
