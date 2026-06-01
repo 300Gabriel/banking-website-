@@ -141,10 +141,10 @@ form button {
   border: none;
   border-radius: 5px;
 }
-.second-image img {
+/* .second-image img {
   width: 500px;
   height: 400px;
-}
+} */
 .frist-grid {
   width: 700px;
 }
@@ -780,9 +780,8 @@ nav {
 
 .grid-section {
   background: white;
-
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 50px;
   align-items: center;
 }
