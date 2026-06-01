@@ -22,9 +22,17 @@ if (registerForm) {
       password,
       accountNumber,
       balance: 25000,
+
+      profileImage: "https://ui-avatars.com/api/?name=" + name,
+
+      phone: "",
+      address: "",
+      accountType: "Savings",
+
+      joinDate: new Date().toLocaleDateString(),
+
       transactions: [],
     };
-
     // Get Existing Users
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
@@ -90,15 +98,31 @@ if (loginForm) {
 // DASHBOARD SECTION
 // ==========================
 
+// ==========================
+// DASHBOARD SECTION
+// ==========================
+
 const welcomeMessage = document.querySelector("#welcome-message");
 
 if (welcomeMessage) {
-  // Get Current User
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
-  // Protect Dashboard
   if (!user) {
     window.location.href = "login.html";
+  }
+
+  // Profile Information
+  const profileImage = document.querySelector("#profile-image");
+  const profileName = document.querySelector("#profile-name");
+  const profileEmail = document.querySelector("#profile-email");
+  const profileAccountType = document.querySelector("#profile-account-type");
+
+  if (profileImage) profileImage.src = user.profileImage;
+  if (profileName) profileName.textContent = user.name;
+  if (profileEmail) profileEmail.textContent = user.email;
+
+  if (profileAccountType) {
+    profileAccountType.textContent = "Account Type: " + user.accountType;
   }
 
   // Welcome Message
@@ -107,14 +131,18 @@ if (welcomeMessage) {
   // Account Number
   const accountNumber = document.querySelector("#account-number");
 
-  accountNumber.textContent = `Account Number: ${user.accountNumber}`;
+  if (accountNumber) {
+    accountNumber.textContent = `Account Number: ${user.accountNumber}`;
+  }
 
   // Balance
   let balance = user.balance;
 
   const balanceElement = document.querySelector("#balance");
 
-  balanceElement.textContent = `$${balance}`;
+  if (balanceElement) {
+    balanceElement.textContent = `$${balance}`;
+  }
 
   // Transactions
   let transactions = user.transactions || [];
@@ -123,12 +151,15 @@ if (welcomeMessage) {
     "#transactions-container",
   );
 
-  // ==========================
-  // RENDER TRANSACTIONS
-  // ==========================
-
   function renderTransactions() {
+    if (!transactionsContainer) return;
+
     transactionsContainer.innerHTML = "<h2>Recent Transactions</h2>";
+
+    if (transactions.length === 0) {
+      transactionsContainer.innerHTML += "<p>No transactions yet.</p>";
+      return;
+    }
 
     transactions.forEach(function (transaction) {
       const transactionDiv = document.createElement("div");
@@ -141,11 +172,11 @@ if (welcomeMessage) {
           <small>${transaction.date}</small>
         </div>
 
-      <span class="amount ${
-        transaction.type === "received" ? "income" : "expense"
-      }">
-  ${transaction.type === "received" ? "+" : "-"}$${transaction.amount}
-</span>
+        <span class="amount ${
+          transaction.type === "received" ? "income" : "expense"
+        }">
+          ${transaction.type === "received" ? "+" : "-"}$${transaction.amount}
+        </span>
       `;
 
       transactionsContainer.appendChild(transactionDiv);
@@ -155,7 +186,7 @@ if (welcomeMessage) {
   renderTransactions();
 
   // ==========================
-  // TRANSFER SECTION
+  // TRANSFER MONEY
   // ==========================
 
   const transferForm = document.querySelector("#transfer-form");
@@ -168,107 +199,109 @@ if (welcomeMessage) {
 
       const amount = Number(document.querySelector("#amount").value);
 
-      // Validation
       if (amount <= 0) {
         alert("Enter valid amount");
         return;
       }
 
-      // Get all users
       const users = JSON.parse(localStorage.getItem("users")) || [];
 
-      // Find recipient user
       const recipientUser = users.find(function (u) {
         return u.name.toLowerCase() === recipient.toLowerCase();
       });
 
-      // Check recipient
       if (!recipientUser) {
         alert("Recipient not found");
         return;
       }
 
-      // Prevent self transfer
       if (recipientUser.email === user.email) {
         alert("You cannot transfer to yourself");
         return;
       }
 
-      // Balance check
       if (amount > balance) {
         alert("Insufficient Balance");
         return;
       }
 
-      // Deduct sender balance
+      // Sender
       balance -= amount;
-
       user.balance = balance;
 
-      // Add receiver balance
+      // Receiver
       recipientUser.balance += amount;
 
-      // Sender transaction
       const senderTransaction = {
         name: recipientUser.name,
-        amount: amount,
+        amount,
         type: "sent",
         date: new Date().toLocaleDateString(),
       };
 
-      // Receiver transaction
       const receiverTransaction = {
         name: user.name,
-        amount: amount,
+        amount,
         type: "received",
         date: new Date().toLocaleDateString(),
       };
 
-      // Add transactions
       transactions.unshift(senderTransaction);
 
       recipientUser.transactions.unshift(receiverTransaction);
 
-      // Save sender transactions
       user.transactions = transactions;
 
-      // Update all users
       const updatedUsers = users.map(function (u) {
-        if (u.email === user.email) {
-          return user;
-        }
+        if (u.email === user.email) return user;
 
-        if (u.email === recipientUser.email) {
-          return recipientUser;
-        }
+        if (u.email === recipientUser.email) return recipientUser;
 
         return u;
       });
 
-      // Save updated users
       localStorage.setItem("users", JSON.stringify(updatedUsers));
 
-      // Save current user
       localStorage.setItem("currentUser", JSON.stringify(user));
 
-      // Update balance UI
       balanceElement.textContent = `$${balance}`;
 
-      // Render transactions again
       renderTransactions();
 
-      // Reset form
       transferForm.reset();
 
       alert(`$${amount} sent to ${recipientUser.name}`);
     });
   }
+
+  // ==========================
+  // PROFILE UPDATE
+  // ==========================
+
+  const profileForm = document.querySelector("#profile-form");
+
+  if (profileForm) {
+    profileForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      user.phone = document.querySelector("#phone").value;
+
+      user.address = document.querySelector("#address").value;
+
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+
+      const updatedUsers = users.map(function (u) {
+        return u.email === user.email ? user : u;
+      });
+
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      alert("Profile Updated");
+    });
+  }
 }
-
-// ==========================
-// LOGOUT SECTION
-// ==========================
-
 const logoutBtn = document.querySelector("#logout-btn");
 
 if (logoutBtn) {
@@ -280,10 +313,6 @@ if (logoutBtn) {
     window.location.href = "login.html";
   });
 }
-
-// ==========================
-// DARK MODE
-// ==========================
 
 const themeToggle = document.querySelector("#theme-toggle");
 
@@ -300,7 +329,7 @@ if (themeToggle) {
     if (document.body.classList.contains("dark")) {
       localStorage.setItem("darkMode", "enabled");
 
-      themeToggle.textContent = "☀️ Light Mode";
+      themeToggle.textContent = " Light Mode";
     } else {
       localStorage.setItem("darkMode", "disabled");
 

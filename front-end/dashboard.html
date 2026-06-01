@@ -71,43 +71,64 @@
 
       <main class="main-content">
         <h1 id="welcome-message"></h1>
-        <p id="account-number"></p>
 
-        <div class="cards">
-          <div class="bank-card primary-card">
-            <div class="card-top">
-              <p>Total Balance</p>
-              <span>💳</span>
+        <!-- PROFILE + ACCOUNT -->
+        <div class="dashboard-header">
+          <div class="profile-card">
+            <img id="profile-image" alt="Profile Image" />
+
+            <div class="profile-details">
+              <h2 id="profile-name"></h2>
+              <p id="profile-email"></p>
+              <p id="profile-account-type"></p>
+              <p id="account-number"></p>
             </div>
-
-            <h1 id="balance">$25,000</h1>
-
-            <small>Available Balance</small>
           </div>
 
-          <div class="bank-card">
-            <div class="card-top">
-              <p>Savings</p>
-              <span>📈</span>
+          <div class="virtual-card">
+            <div class="card-logo">💳 TrustBank</div>
+
+            <div class="card-number">**** **** **** 5678</div>
+
+            <div class="card-footer">
+              <span id="profile-name-card">CARD HOLDER</span>
+              <span>VISA</span>
             </div>
-
-            <h1>$10,500</h1>
-
-            <small>Long Term Savings</small>
-          </div>
-
-          <div class="bank-card">
-            <div class="card-top">
-              <p>Investments</p>
-              <span>📊</span>
-            </div>
-
-            <h1>$14,500</h1>
-
-            <small>Portfolio Growth</small>
           </div>
         </div>
 
+        <!-- STATS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>Total Balance</h3>
+            <h1 id="balance">$25,000</h1>
+          </div>
+
+          <div class="stat-card">
+            <h3>Total Transactions</h3>
+            <h1 id="transaction-count">0</h1>
+          </div>
+
+          <div class="stat-card">
+            <h3>Account Type</h3>
+            <h1 id="account-type-card">Savings</h1>
+          </div>
+        </div>
+
+        <!-- PROFILE SETTINGS -->
+        <div class="profile-settings">
+          <h2>Update Profile</h2>
+
+          <form id="profile-form">
+            <input type="text" id="phone" placeholder="Phone Number" />
+
+            <input type="text" id="address" placeholder="Address" />
+
+            <button type="submit">Save Changes</button>
+          </form>
+        </div>
+
+        <!-- TRANSFER -->
         <div class="transfer-section">
           <h2>Transfer Money</h2>
 
@@ -125,24 +146,22 @@
           </form>
         </div>
 
+        <!-- TRANSACTION SEARCH -->
+        <div class="search-box">
+          <input
+            type="text"
+            id="search-transaction"
+            placeholder="Search transactions..."
+          />
+        </div>
+
+        <!-- TRANSACTIONS -->
         <div class="transactions" id="transactions-container">
           <h2>Recent Transactions</h2>
-
-          <div class="transaction">
-            <p>Netflix Subscription</p>
-            <span>-$20</span>
-          </div>
-
-          <div class="transaction">
-            <p>Salary Payment</p>
-            <span>+$3,000</span>
-          </div>
-
-          <div class="transaction">
-            <p>Electricity Bill</p>
-            <span>-$120</span>
-          </div>
         </div>
+
+        <!-- TOAST NOTIFICATION -->
+        <div id="toast"></div>
       </main>
     </div>
 
