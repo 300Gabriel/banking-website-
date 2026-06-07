@@ -135,9 +135,8 @@ if (welcomeMessage) {
   let balance = user.balance;
 
   const balanceElement = document.querySelector("#balance");
-
   if (balanceElement) {
-    balanceElement.textContent = `$${balance}`;
+    balanceElement.textContent = `₦${balance.toLocaleString()}`;
   }
 
   // ==========================
@@ -182,13 +181,13 @@ if (welcomeMessage) {
 
       localStorage.setItem("currentUser", JSON.stringify(user));
 
-      balanceElement.textContent = `$${balance}`;
+      balanceElement.textContent = `₦${balance.toLocaleString()}`;
 
       renderTransactions();
 
       depositForm.reset();
 
-      alert(`$${amount} deposited successfully`);
+      alert(`₦${amount.toLocaleString()} deposited successfully`);
     });
   }
 
@@ -239,8 +238,7 @@ if (welcomeMessage) {
 
       localStorage.setItem("currentUser", JSON.stringify(user));
 
-      balanceElement.textContent = `$${balance}`;
-
+      balanceElement.textContent = `₦${balance.toLocaleString()}`;
       renderTransactions();
 
       withdrawForm.reset();
@@ -261,6 +259,12 @@ if (welcomeMessage) {
 
     transactionsContainer.innerHTML = "<h2>Recent Transactions</h2>";
 
+    const transactionCount = document.querySelector("#transaction-count");
+
+    if (transactionCount) {
+      transactionCount.textContent = transactions.length;
+    }
+
     if (transactions.length === 0) {
       transactionsContainer.innerHTML += "<p>No transactions yet.</p>";
       return;
@@ -272,17 +276,19 @@ if (welcomeMessage) {
       transactionDiv.classList.add("transaction");
 
       transactionDiv.innerHTML = `
-        <div class="transaction-info">
-          <h4>${transaction.name}</h4>
-          <small>${transaction.date}</small>
-        </div>
+      <div class="transaction-info">
+        <h4>${transaction.name}</h4>
+        <small>${transaction.date}</small>
+      </div>
 
-        <span class="amount ${
-          transaction.type === "received" ? "income" : "expense"
-        }">
-          ${transaction.type === "received" ? "+" : "-"}$${transaction.amount}
-        </span>
-      `;
+      <span class="amount ${
+        transaction.type === "received" ? "income" : "expense"
+      }">
+        ${
+          transaction.type === "received" ? "+" : "-"
+        }₦${transaction.amount.toLocaleString()}
+      </span>
+    `;
 
       transactionsContainer.appendChild(transactionDiv);
     });
@@ -300,8 +306,9 @@ if (welcomeMessage) {
     transferForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const recipient = document.querySelector("#recipient").value.trim();
-
+      const recipient = document
+        .querySelector("#recipient-transfer")
+        .value.trim();
       const amount = Number(document.querySelector("#amount").value);
 
       if (amount <= 0) {
@@ -312,9 +319,8 @@ if (welcomeMessage) {
       const users = JSON.parse(localStorage.getItem("users")) || [];
 
       const recipientUser = users.find(function (u) {
-        return u.name.toLowerCase() === recipient.toLowerCase();
+        return String(u.accountNumber) === recipient;
       });
-
       if (!recipientUser) {
         alert("Recipient not found");
         return;
@@ -353,6 +359,8 @@ if (welcomeMessage) {
 
       transactions.unshift(senderTransaction);
 
+      recipientUser.transactions = recipientUser.transactions || [];
+
       recipientUser.transactions.unshift(receiverTransaction);
 
       user.transactions = transactions;
@@ -369,13 +377,31 @@ if (welcomeMessage) {
 
       localStorage.setItem("currentUser", JSON.stringify(user));
 
-      balanceElement.textContent = `$${balance}`;
+      balanceElement.textContent = `₦${balance.toLocaleString()}`;
 
       renderTransactions();
 
       transferForm.reset();
 
-      alert(`$${amount} sent to ${recipientUser.name}`);
+      // Generate transaction reference
+      const transactionRef = "TB" + Date.now();
+
+      // Show receipt
+      document.querySelector("#receipt-ref").textContent = transactionRef;
+
+      document.querySelector("#receipt-sender").textContent = user.name;
+
+      document.querySelector("#receipt-recipient").textContent =
+        recipientUser.name;
+
+      document.querySelector("#receipt-amount").textContent = amount;
+
+      document.querySelector("#receipt-date").textContent =
+        new Date().toLocaleString();
+
+      document.querySelector("#receipt-balance").textContent = balance;
+
+      document.querySelector("#receipt-modal").style.display = "flex";
     });
   }
 
@@ -442,3 +468,139 @@ if (themeToggle) {
     }
   });
 }
+
+const track = document.querySelector(".testimonial-track");
+const slides = document.querySelectorAll(".testimonial");
+
+const nextBtn = document.querySelector("#nextBtn");
+const prevBtn = document.querySelector("#prevBtn");
+
+let currentSlide = 0;
+
+if (nextBtn && prevBtn && track && slides.length > 0) {
+  function updateSlider() {
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  nextBtn.addEventListener("click", () => {
+    currentSlide++;
+
+    if (currentSlide >= slides.length) {
+      currentSlide = 0;
+    }
+
+    updateSlider();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    currentSlide--;
+
+    if (currentSlide < 0) {
+      currentSlide = slides.length - 1;
+    }
+
+    updateSlider();
+  });
+
+  setInterval(() => {
+    currentSlide++;
+
+    if (currentSlide >= slides.length) {
+      currentSlide = 0;
+    }
+
+    updateSlider();
+  }, 5000);
+}
+//  this is the logging section
+const togglePassword = document.querySelector("#toggle-password");
+const passwordInput = document.querySelector("#login-password");
+
+if (togglePassword && passwordInput) {
+  togglePassword.addEventListener("click", () => {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  });
+}
+
+// ==========================
+// RECEIPT
+// ==========================
+
+const closeReceipt = document.querySelector("#close-receipt");
+
+if (closeReceipt) {
+  closeReceipt.addEventListener("click", function () {
+    document.querySelector("#receipt-modal").style.display = "none";
+  });
+}
+
+const printReceipt = document.querySelector("#print-receipt");
+
+if (printReceipt) {
+  printReceipt.addEventListener("click", function () {
+    window.print();
+  });
+}
+
+// const modal = document.querySelector("#action-modal");
+// const title = document.querySelector("#action-title");
+// const recipientField = document.querySelector("#recipient");
+
+// const openSend = document.querySelector("#open-send");
+// const openDeposit = document.querySelector("#open-deposit");
+// const openWithdraw = document.querySelector("#open-withdraw");
+// const closeAction = document.querySelector("#close-action");
+
+// let currentAction = "";
+
+// if (openSend && modal) {
+//   openSend.addEventListener("click", () => {
+//     currentAction = "send";
+
+//     title.textContent = "Send Money";
+
+//     if (recipientField) {
+//       recipientField.style.display = "block";
+//     }
+
+//     modal.style.display = "flex";
+//   });
+// }
+
+// if (openDeposit && modal) {
+//   openDeposit.addEventListener("click", () => {
+//     currentAction = "deposit";
+
+//     title.textContent = "Deposit Funds";
+
+//     if (recipientField) {
+//       recipientField.style.display = "none";
+//     }
+
+//     modal.style.display = "flex";
+//   });
+// }
+
+// if (openWithdraw && modal) {
+//   openWithdraw.addEventListener("click", () => {
+//     currentAction = "Withdraw";
+
+//     title.textContent = "Withdraw Funds";
+
+//     if (recipientField) {
+//       recipientField.style.display = "none";
+//     }
+
+//     modal.style.display = "flex";
+//   });
+// }
+
+// if (closeAction && modal) {
+//   closeAction.addEventListener("click", () => {
+//     modal.style.display = "none";
+//   });
+// }

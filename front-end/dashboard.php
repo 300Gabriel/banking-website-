@@ -1,3 +1,6 @@
+<?php session_start(); if (!isset($_SESSION['user_id'])) { header("Location:
+login.php"); exit(); } ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,8 +13,9 @@
   </head>
   <body>
     <nav>
-      <h1><img src="/bank.svg" alt="" srcset="" width="30px" /> TrustBank</h1>
-
+      <h1>
+        <a href="index.html"><img src="/bank.svg" width="30" /> TrustBank</a>
+      </h1>
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="login.html">Login</a>
@@ -86,9 +90,11 @@
           </div>
 
           <div class="virtual-card">
-            <div class="card-logo">💳 TrustBank</div>
+            <div class="card-chip"></div>
 
-            <div class="card-number">**** **** **** 5678</div>
+            <h3>TRUSTBANK PREMIUM</h3>
+
+            <div class="card-number">5399 1234 5678 9010</div>
 
             <div class="card-footer">
               <span id="profile-name-card">CARD HOLDER</span>
@@ -99,9 +105,12 @@
 
         <!-- STATS -->
         <div class="stats-grid">
-          <div class="stat-card">
-            <h3>Total Balance</h3>
-            <h1 id="balance">$25,000</h1>
+          <div class="balance-card">
+            <p>Available Balance</p>
+
+            <h1 id="balance">₦25,000.00</h1>
+
+            <small> Last updated just now </small>
           </div>
 
           <div class="stat-card">
@@ -115,6 +124,28 @@
           </div>
         </div>
 
+        <!-- <div class="quick-actions">
+          <button id="open-send">
+            📤
+            <span>Send</span>
+          </button>
+
+          <button id="open-deposit">
+            💰
+            <span>Add Money</span>
+          </button>
+
+          <button id="open-withdraw">
+            🏧
+            <span>Withdraw</span>
+          </button>
+
+          <button id="open-card">
+            💳
+            <span>Cards</span>
+          </button>
+        </div> -->
+
         <!-- PROFILE SETTINGS -->
         <div class="profile-settings">
           <h2>Update Profile</h2>
@@ -127,7 +158,6 @@
             <button type="submit">Save Changes</button>
           </form>
         </div>
-
         <div class="deposit-section">
           <h2>Deposit Money</h2>
 
@@ -158,15 +188,14 @@
           </form>
         </div>
 
-        <!-- TRANSFER -->
         <div class="transfer-section">
           <h2>Transfer Money</h2>
 
           <form id="transfer-form">
             <input
               type="text"
-              id="recipient"
-              placeholder="Recipient Name"
+              id="recipient-transfer"
+              placeholder="Recipient Account Number"
               required
             />
 
@@ -184,8 +213,44 @@
             placeholder="Search transactions..."
           />
         </div>
+        <br />
+
+        <!-- RECEIPT MODAL -->
+
+        <div id="receipt-modal" class="receipt-modal">
+          <div class="receipt">
+            <h2>TrustBank Receipt</h2>
+
+            <hr />
+
+            <p><strong>Reference:</strong> <span id="receipt-ref"></span></p>
+
+            <p><strong>Sender:</strong> <span id="receipt-sender"></span></p>
+
+            <p>
+              <strong>Recipient:</strong> <span id="receipt-recipient"></span>
+            </p>
+
+            <p><strong>Amount:</strong> $<span id="receipt-amount"></span></p>
+
+            <p><strong>Status:</strong> Successful</p>
+
+            <p><strong>Date:</strong> <span id="receipt-date"></span></p>
+
+            <p><strong>Balance:</strong> $<span id="receipt-balance"></span></p>
+
+            <hr />
+
+            <h3>Thank you for banking with TrustBank</h3>
+
+            <button id="print-receipt">Print Receipt</button>
+
+            <button id="close-receipt">Close</button>
+          </div>
+        </div>
 
         <!-- TRANSACTIONS -->
+
         <div class="transactions" id="transactions-container">
           <h2>Recent Transactions</h2>
         </div>

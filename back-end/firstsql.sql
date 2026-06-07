@@ -1,0 +1,33 @@
+CREATE TABLE users(
+id INT AUTO_INCREMENT PRIMARY KEY,
+
+full_name VARCHAR(100),
+
+email VARCHAR(100) UNIQUE,
+
+password VARCHAR(255),
+
+account_number VARCHAR(20),
+
+balance DECIMAL(15,2) DEFAULT 0,
+
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+CREATE TABLE transactions(
+id INT AUTO_INCREMENT PRIMARY KEY,
+
+sender_account VARCHAR(20),
+
+receiver_account VARCHAR(20),
+
+amount DECIMAL(15,2),
+
+type VARCHAR(20),
+
+reference VARCHAR(50),
+
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
