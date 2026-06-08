@@ -15,6 +15,23 @@ $sql = "SELECT * FROM users WHERE id='$id'";
 $result = mysqli_query($conn, $sql);
 
 $user = mysqli_fetch_assoc($result);
+
+
+
+$account = $user['account_number'];
+
+$transactionSql = "
+SELECT *
+FROM transactions
+WHERE sender_account='$account'
+OR receiver_account='$account'
+ORDER BY created_at DESC
+";
+
+$transactionResult = mysqli_query(
+  $conn,
+  $transactionSql
+);
 ?>
 
 <!doctype html>
@@ -136,7 +153,7 @@ $user = mysqli_fetch_assoc($result);
           <p>Available Balance</p>
 
           <h1>
-            ₦<?php echo number_format($_SESSION['balance'], 2); ?>
+            ₦<?php echo number_format($user['balance'], 2); ?>
           </h1>
 
           <small> Last updated just now </small>
@@ -144,7 +161,28 @@ $user = mysqli_fetch_assoc($result);
 
         <div class="stat-card">
           <h3>Total Transactions</h3>
-          <h1 id="transaction-count">0</h1>
+          <?php
+
+          $countSql = "
+SELECT COUNT(*) AS total
+FROM transactions
+WHERE sender_account='$account'
+OR receiver_account='$account'
+";
+
+          $countResult = mysqli_query(
+            $conn,
+            $countSql
+          );
+
+          $countData = mysqli_fetch_assoc(
+            $countResult
+          );
+          ?>
+
+          <h1>
+            <?php echo $countData['total']; ?>
+          </h1>
         </div>
 
         <div class="stat-card">
@@ -207,13 +245,12 @@ $user = mysqli_fetch_assoc($result);
 
       <div class="withdraw-section">
         <h2>Withdraw Money</h2>
-
-        <form id="withdraw-form">
+        <form action="../API/withdraw.php" method="POST">
           <input
             type="number"
-            id="withdraw-amount"
+            name="amount"
             placeholder="Enter amount"
-            required />
+            required>
 
           <button type="submit">Withdraw Funds</button>
         </form>
@@ -222,14 +259,14 @@ $user = mysqli_fetch_assoc($result);
       <div class="transfer-section">
         <h2>Transfer Money</h2>
 
-        <form id="transfer-form">
+        <form action="../API/transfer.php" method="POST">
           <input
             type="text"
-            id="recipient-transfer"
+            name="recipient_account"
             placeholder="Recipient Account Number"
-            required />
+            required>
 
-          <input type="number" id="amount" placeholder="Amount" required />
+          <input type="number" id="amount" name="amount" placeholder="Amount" required />
 
           <button type="submit">Send Money</button>
         </form>
@@ -280,8 +317,34 @@ $user = mysqli_fetch_assoc($result);
 
       <!-- TRANSACTIONS -->
 
-      <div class="transactions" id="transactions-container">
+      <div class="transactions">
+
         <h2>Recent Transactions</h2>
+
+        <?php while ($row = mysqli_fetch_assoc($transactionResult)) { ?>
+
+          <div class="transaction">
+
+            <h4>
+              <?php echo ucfirst($row['TYPE']); ?></h4>
+
+            <p>
+              Reference:
+              <?php echo $row['reference']; ?>
+            </p>
+
+            <p>
+              ₦<?php echo number_format($row['amount'], 2); ?>
+            </p>
+
+            <small>
+              <?php echo $row['created_at']; ?>
+            </small>
+
+          </div>
+
+        <?php } ?>
+
       </div>
 
       <!-- TOAST NOTIFICATION -->

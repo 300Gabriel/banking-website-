@@ -33,39 +33,3 @@ CREATE TABLE transactions (
 );
 
 
-
-INSERT INTO transactions
-(
-sender_account,
-receiver_account,
-amount,
-type,
-reference
-)
-
-VALUES
-(
-'SELF',
-'23456789',
-5000,
-'deposit',
-'TB123456'
-)
-
-INSERT INTO transactions
-(
-sender_account,
-receiver_account,
-amount,
-type,
-reference
-)
-
-VALUES
-(
-'23456789',
-'SELF',
-2000,
-'withdraw',
-'TB987654'
-)
