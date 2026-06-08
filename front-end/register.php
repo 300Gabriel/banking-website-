@@ -46,16 +46,16 @@ if (isset($_POST['register'])) {
 <body>
     <nav>
         <h1>
-            <a href="index.html">
+            <a href="index.php">
                 <img src="../bank.svg" width="30" />
                 TrustBank
             </a>
         </h1>
 
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="login.html">Login</a>
-            <a href="register.html">Register</a>
+            <a href="index.php">Home</a>
+            <a href="login.php">Login</a>
+            <a href="register.php">Register</a>
         </div>
     </nav>
 
@@ -107,7 +107,7 @@ if (isset($_POST['register'])) {
 
                 <p class="auth-link">
                     Already have an account?
-                    <a href="login.html">Login</a>
+                    <a href="login.php">Login</a>
                 </p>
             </form>
         </div>

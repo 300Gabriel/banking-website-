@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+include "../back-end/db.php";
+
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.php");
+  exit();
+}
+
+$id = $_SESSION['user_id'];
+
+$sql = "SELECT * FROM users WHERE id='$id'";
+
+$result = mysqli_query($conn, $sql);
+
+$user = mysqli_fetch_assoc($result);
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -13,12 +32,12 @@
 <body>
   <nav>
     <h1>
-      <a href="index.html"><img src="/bank.svg" width="30" /> TrustBank</a>
+      <a href="../front-end/index.php"><img src="../bank.svg" width="30" /> TrustBank</a>
     </h1>
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
+      <a href="../front-end/index.php">Home</a>
+      <a href="../front-end/login.php">Login</a>
+      <a href="../front-end/register.php">Register</a>
     </div>
   </nav>
 
@@ -68,12 +87,17 @@
       <div class="sidebar-bottom">
         <button id="theme-toggle">🌙 Dark Mode</button>
 
-        <button id="logout-btn">Logout</button>
+        <a href="logout.php" class="logout-btn">
+          Logout
+        </a>
       </div>
     </aside>
 
     <main class="main-content">
-      <h1 id="welcome-message"></h1>
+      <h1>
+        Welcome,
+        <?php echo $_SESSION['full_name']; ?>
+      </h1>
 
       <!-- PROFILE + ACCOUNT -->
       <div class="dashboard-header">
@@ -82,9 +106,13 @@
 
           <div class="profile-details">
             <h2 id="profile-name"></h2>
-            <p id="profile-email"></p>
+            <p>
+              <?php echo $_SESSION['email']; ?>
+            </p>
             <p id="profile-account-type"></p>
-            <p id="account-number"></p>
+            <p>
+              <?php echo $_SESSION['account_number']; ?>
+            </p>
           </div>
         </div>
 
@@ -107,7 +135,9 @@
         <div class="balance-card">
           <p>Available Balance</p>
 
-          <h1 id="balance">₦25,000.00</h1>
+          <h1>
+            ₦<?php echo number_format($_SESSION['balance'], 2); ?>
+          </h1>
 
           <small> Last updated just now </small>
         </div>
@@ -160,14 +190,18 @@
       <div class="deposit-section">
         <h2>Deposit Money</h2>
 
-        <form id="deposit-form">
+        <form action="../API/deposit.php" method="POST">
+
           <input
             type="number"
-            id="deposit-amount"
+            name="amount"
             placeholder="Enter amount"
-            required />
+            required>
 
-          <button type="submit">Deposit Funds</button>
+          <button type="submit">
+            Deposit Funds
+          </button>
+
         </form>
       </div>
 

@@ -1,3 +1,54 @@
+<?php
+
+session_start();
+include "../back-end/db.php";
+
+
+
+if (isset($_POST['login'])) {
+
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  $sql = "SELECT * FROM users WHERE email='$email'";
+
+  $result = mysqli_query($conn, $sql);
+
+  if (mysqli_num_rows($result) > 0) {
+
+    $user = mysqli_fetch_assoc($result);
+
+    if (password_verify($password, $user['password'])) {
+
+      $_SESSION['user_id'] = $user['id'];
+
+      $_SESSION['full_name'] = $user['full_name'];
+
+      $_SESSION['email'] = $user['email'];
+
+      $_SESSION['account_number'] = $user['account_number'];
+
+      $_SESSION['balance'] = $user['balance'];
+
+
+      header("Location: ../front-end/dashboard.php");
+      exit();
+    } else {
+
+      echo "Wrong Password";
+    }
+  } else {
+
+    echo "User Not Found";
+  }
+}
+?>
+
+
+
+
+
+
 <!doctype html>
 <html lang="en">
 
@@ -6,19 +57,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../front-end/style.css" />
 </head>
 
 <body>
   <nav>
     <h1>
-      <a href="index.html"><img src="../bank.svg" width="30" /> TrustBank</a>
+      <a href="../front-end/index.php"><img src="../bank.svg" width="30" /> TrustBank</a>
     </h1>
 
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
+      <a href="../front-end/index.php">Home</a>
+      <a href="../front-end/login.php">Login</a>
+      <a href="../front-end/register.php">Register</a>
     </div>
   </nav>
 
@@ -38,22 +89,21 @@
     </div>
 
     <div class="login-card">
-      <form id="login-form">
+      <form action="login.php" method="POST" id="php-login-form">
         <h2>Sign In</h2>
 
         <input
           type="email"
-          id="login-email"
+          name="email"
           placeholder="Enter your email"
           required />
 
         <div class="password-box">
           <input
             type="password"
-            id="login-password"
+            name="password"
             placeholder="Enter your password"
             required />
-
           <span id="toggle-password">🛡️</span>
         </div>
 
@@ -66,17 +116,19 @@
           <a href="#">Forgot Password?</a>
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit" name="login">
+          Login
+        </button>
 
         <p class="register-link">
           Don't have an account?
-          <a href="register.html">Register</a>
+          <a href="../front-end/register.php">Register</a>
         </p>
       </form>
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <script src="../front-end/script.js"></script>
 </body>
 
 </html>

@@ -151,7 +151,7 @@
     </div>
 
     <div class="second-image">
-      <img src="/front-end/Trustbank.png" alt="" />
+      <img src="../front-end/Trustbank.png" alt="" />
     </div>
   </section>
 
