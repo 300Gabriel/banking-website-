@@ -19,7 +19,7 @@ function sendMail($to, $name, $subject, $message)
 
         $mail->Username = "yourgmail@gmail.com";
 
-        $mail->Password = "qgbz bkjc aeib bixc";
+        $mail->Password = "";
 
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
