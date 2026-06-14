@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TrustBank</title>
-  <link rel="stylesheet" href="../front-end/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/landing.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -18,15 +19,15 @@
   <!-- NAVBAR -->
   <nav>
     <h1>
-      <a href="index.html"><img src="../bank.svg" width="30" /> TrustBank</a>
+      <a href="index.php"><img src="../bank.svg" width="30" /> TrustBank</a>
     </h1>
 
     <div class="nav-links">
-      <a href="index.html">Home</a>
+      <a href="index.php">Home</a>
       <a href="#services">Services</a>
       <a href="#faq">FAQ</a>
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
+      <a href="login.php">Login</a>
+      <a href="register.php">Register</a>
     </div>
   </nav>
 
@@ -41,8 +42,8 @@
       </p>
 
       <div class="hero-buttons">
-        <a href="register.html" class="btn">Open Account</a>
-        <a href="login.html" class="btn-outline">Login</a>
+        <a href="register.php" class="btn">Open Account</a>
+        <a href="login.php" class="btn-outline">Login</a>
       </div>
     </div>
   </section>
@@ -136,17 +137,17 @@
   <section class="grid-section">
     <div class="frist-grid">
       <p>TrustBank Internet Banking</p>
-
       <h1>Online Banking That Is Easy & Efficient</h1>
+
 
       <p>
         From fund transfers to bill payments, our online banking platform
         provides all the tools you need.
       </p>
-
-      <div class="fero-buttons">
-        <a href="login.html" class="btn-inline">Login</a>
-        <a href="register.html" class="btn-second">Open Account</a>
+      <br> <br>
+      <div class="hero-buttons">
+        <a href="login.php" class="btn-inline">Login</a>
+        <a href="register.php" class="btn-second">Open Account</a>
       </div>
     </div>
 
@@ -166,7 +167,7 @@
       </p>
       <br /><br />
 
-      <a href="register.html" class="btn"> Apply Now </a>
+      <a href="register.php" class="btn"> Apply Now </a>
     </div>
 
     <div class="credit-card">
@@ -190,7 +191,7 @@
 
     <img
       src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9"
-      alt="" />
+      alt="good picture" />
   </section>
 
   <section class="testimonials">
@@ -294,7 +295,7 @@
 
     <p>Join thousands of customers already using TrustBank.</p>
 
-    <a href="register.html" class="btn"> Open Account Today </a>
+    <a href="register.php" class="btn"> Open Account Today </a>
   </section>
 
   <!-- FOOTER -->

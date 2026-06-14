@@ -40,7 +40,8 @@ if (isset($_POST['register'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Open Account | TrustBank</title>
 
-    <link rel="stylesheet" href="../front-end/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
 <body>
@@ -113,7 +114,7 @@ if (isset($_POST['register'])) {
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <script src="../front-end/script.js"></script>
 </body>
 
 </html>

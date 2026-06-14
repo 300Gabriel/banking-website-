@@ -14,52 +14,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $userId = $_SESSION["user_id"];
 
-    // Get user balance
+    // Get current user
+
     $result = mysqli_query(
         $conn,
-        "SELECT * FROM users WHERE id = $userId"
+        "SELECT * FROM users WHERE id='$userId'"
     );
 
     $user = mysqli_fetch_assoc($result);
+
+    // Check balance
 
     if ($amount > $user["balance"]) {
         die("Insufficient Funds");
     }
 
-    // Deduct balance
+    // Update balance
+
     mysqli_query(
         $conn,
         "UPDATE users
-        SET balance = balance - $amount
-        WHERE id = $userId"
+         SET balance = balance - $amount
+         WHERE id='$userId'"
     );
 
-    // Refresh user
-    $result = mysqli_query(
+    // Refresh session balance
+
+    $updatedResult = mysqli_query(
         $conn,
-        "SELECT * FROM users WHERE id = $userId"
+        "SELECT * FROM users WHERE id='$userId'"
     );
 
-    $user = mysqli_fetch_assoc($result);
+    $updatedUser =
+        mysqli_fetch_assoc($updatedResult);
 
-    $_SESSION["balance"] = $user["balance"];
+    $_SESSION["balance"] =
+        $updatedUser["balance"];
 
     // Save transaction
-    $reference = "WTH" . time();
 
-    $account = $user["account_number"];
+    $reference =
+        "WTH" . time();
 
     mysqli_query(
         $conn,
         "INSERT INTO transactions(
-            sender_account,
-            receiver_account,
-            amount,
-            type,
-            reference
-        )
+    sender_account,
+    receiver_account,
+    amount,
+    transaction_type,
+    reference
+)
         VALUES(
-            '$account',
+            '{$user['account_number']}',
             'CASH',
             '$amount',
             'withdraw',
@@ -67,6 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         )"
     );
 
-    header("Location: ../front-end/dashboard.php");
+    header(
+        "Location: ../front-end/receipt.php?ref=$reference"
+    );
+
     exit();
 }

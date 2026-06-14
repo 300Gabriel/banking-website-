@@ -1,0 +1,307 @@
+.form-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  background: white;
+  padding: 40px;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form h2 {
+  text-align: center;
+}
+
+form input {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+form button {
+  padding: 15px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* logingg page  */
+
+.login-page {
+  min-height: 90vh;
+
+  display: grid;
+  grid-template-columns: 1fr 450px;
+
+  align-items: center;
+
+  padding: 80px 8%;
+  gap: 60px;
+}
+
+.login-left h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+.login-left {
+  color: #0f172a;
+}
+
+.login-left p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #64748b;
+}
+
+.security-box {
+  margin-top: 40px;
+  background-color: #1a73e8;
+  color: #e5e7eb;
+  padding: 25px;
+  border-radius: 20px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+.security-box p {
+  color: black;
+  font-size: 26px;
+}
+
+.login-card {
+  background-color: #1a73e8;
+}
+.login-card form {
+  width: 100%;
+  background: white;
+
+  padding: 40px;
+
+  border-radius: 25px;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: s 30px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+}
+
+.password-box {
+  position: relative;
+}
+
+#toggle-password {
+  position: absolute;
+
+  right: 15px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  cursor: pointer;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+
+  font-size: 14px;
+}
+
+.login-options a {
+  text-decoration: none;
+  color: #2563eb;
+}
+
+.login-card button {
+  width: 100%;
+
+  background: #2563eb;
+  color: white;
+
+  padding: 16px;
+
+  border: none;
+  border-radius: 12px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.register-link {
+  text-align: center;
+}
+
+.register-link a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .login-page {
+    grid-template-columns: 1fr;
+  }
+
+  .login-left {
+    text-align: center;
+  }
+
+  .login-left h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* ==========================
+   AUTH PAGES
+========================== */
+
+.auth-section {
+  min-height: calc(100vh - 80px);
+
+  display: grid;
+  grid-template-columns: 1fr 500px;
+
+  align-items: center;
+
+  padding: 80px 8%;
+  gap: 60px;
+
+  background:
+    linear-gradient(rgba(66, 70, 79, 0.92), rgba(41, 46, 58, 0.92)),
+    url("/front-end/bank-bc.jpg");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.auth-info h1 {
+  color: white;
+  font-size: 3.5rem;
+  margin-bottom: 25px;
+}
+
+.auth-info p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 35px;
+}
+
+.auth-features {
+  display: grid;
+  gap: 20px;
+}
+
+.auth-features div {
+  color: white;
+  font-size: 1rem;
+}
+
+.auth-card {
+  background: white;
+  padding: 45px;
+  border-radius: 25px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.auth-card form {
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #111827;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 16px;
+
+  border: 1px solid #d1d5db !important;
+  border-radius: 12px;
+
+  margin-bottom: 15px;
+}
+
+.auth-card button {
+  width: 100%;
+
+  padding: 16px;
+  border: none;
+
+  background: #2563eb;
+  color: white;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+
+  transition: 0.3s;
+}
+
+.auth-card button:hover {
+  transform: translateY(-2px);
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.auth-link a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+  .auth-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .auth-info h1 {
+    font-size: 2.5rem;
+  }
+
+  .auth-card {
+    width: 100%;
+  }
+}
+
+/* ==========================
+   DASHBOARD DESIGN
+========================== */
+
+/* LAYOUT */

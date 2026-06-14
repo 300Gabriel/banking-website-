@@ -43,24 +43,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query(
         $conn,
         "INSERT INTO transactions(
-            sender_account,
-            receiver_account,
-            amount,
-            type,
-            reference
-        )
-        VALUES(
-            'SYSTEM',
-            '$account',
-            '$amount',
-            'deposit',
-            '$reference'
-        )"
+    sender_account,
+    receiver_account,
+    amount,
+    transaction_type,
+    reference
+)
+VALUES(
+    'SYSTEM',
+    '$account',
+    '$amount',
+    'deposit',
+    '$reference'
+)"
     );
 
     header(
-        "Location: ../front-end/dashboard.php"
+        "Location: ../front-end/receipt.php?ref=$reference"
     );
-
     exit();
 }

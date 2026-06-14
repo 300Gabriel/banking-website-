@@ -12,7 +12,8 @@
 //     const password = document.querySelector("#login-password").value;
 
 //     // Get Users
-//     const users = JSON.parse(localStorage.getItem("users")) || [];
+//     const users = JSON.parse(localStorage.getItem("user
+// s")) || [];
 
 //     // Find User
 //     const foundUser = users.find(function (user) {
@@ -124,7 +125,7 @@ const closeReceipt = document.querySelector("#close-receipt");
 
 if (closeReceipt) {
   closeReceipt.addEventListener("click", function () {
-    document.querySelector("#receipt-modal").style.display = "none";
+    window.location.href = "dashboard.php";
   });
 }
 
@@ -133,5 +134,81 @@ const printReceipt = document.querySelector("#print-receipt");
 if (printReceipt) {
   printReceipt.addEventListener("click", function () {
     window.print();
+  });
+}
+
+const accountInput = document.querySelector("#recipient_account");
+
+const accountName = document.querySelector("#account-name");
+
+if (accountInput && accountName) {
+  accountInput.addEventListener("keyup", async () => {
+    const account = accountInput.value;
+
+    if (account.length < 10) {
+      accountName.textContent = "";
+      return;
+    }
+
+    const response = await fetch(
+      "../API/verify-account.php?account=" + account,
+    );
+
+    const data = await response.text();
+
+    accountName.textContent = data;
+  });
+}
+
+const transferBtn = document.getElementById("open-transfer");
+
+if (transferBtn) {
+  transferBtn.onclick = () => {
+    document.getElementById("transfer-modal").style.display = "flex";
+  };
+}
+
+const depositBtn = document.getElementById("open-deposit");
+
+if (depositBtn) {
+  depositBtn.onclick = () => {
+    document.getElementById("deposit-modal").style.display = "flex";
+  };
+}
+
+const withdrawBtn = document.getElementById("open-withdraw");
+
+if (withdrawBtn) {
+  withdrawBtn.onclick = () => {
+    document.getElementById("withdraw-modal").style.display = "flex";
+  };
+}
+
+const profileBtn = document.getElementById("open-profile");
+
+if (profileBtn) {
+  profileBtn.onclick = () => {
+    document.getElementById("profile-modal").style.display = "flex";
+  };
+}
+
+document.querySelectorAll(".close-modal").forEach((btn) => {
+  btn.onclick = function () {
+    this.closest(".action-modal").style.display = "none";
+  };
+});
+
+const bell = document.querySelector(".notification-icon");
+const dropdown = document.querySelector(".notification-dropdown");
+
+if (bell && dropdown) {
+  bell.addEventListener("click", function () {
+    dropdown.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!bell.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.classList.remove("show");
+    }
   });
 }

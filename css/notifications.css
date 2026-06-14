@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #f5f7fb;
+  font-family: Arial, sans-serif;
+}
+
+.notifications-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.notification-header h1 {
+  margin: 0;
+}
+
+.close-btn {
+  text-decoration: none;
+  font-size: 35px;
+  color: #333;
+}
+
+.notification-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.notification-content p {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.notification-content small {
+  color: #777;
+}
+
+.delete-notification {
+  text-decoration: none;
+  font-size: 22px;
+}
+
+.empty-notifications {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.delete-notification:hover {
+  transform: scale(1.2);
+}
