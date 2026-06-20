@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="aGerKugnPvx2bw7AVU8Zmnjp_i8JFm25ToJFFDAPQQ0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="36CNc69-uKVnpeIYfRdDXYbScmuQ1UjqfFU4k2MZZl4" />
   <title>TrustBank</title>
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/landing.css">
